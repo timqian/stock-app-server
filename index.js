@@ -4,9 +4,9 @@ import bodyParser     from 'body-parser';
 import methodOverride from 'method-override';
 import morgan         from 'morgan';
 import mongoose       from 'mongoose';
-import restMongo from './restMongo';
+import restMongoRouter from './restMongoRouter';
 
-mongoose.connect('mongodb://localhost/database'); // connect to database
+mongoose.connect('mongodb://120.27.92.163:27777/testdb'); // connect to database
 
 const userConfig = {
   APP_NAME: 'STOCK APP',
@@ -31,7 +31,7 @@ const userConfig = {
     NEED_EMAIL_VERIFICATION: 'You need to verify your email first',
   },
 
-  API_URL: 'http://localhost:3000'
+  API_URL: 'http://120.27.92.163:8080'
 };
 
 authApi.init(userConfig);
@@ -42,11 +42,11 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(morgan('dev'));
 app.use('/', authApi.authRouter);
-app.use('/', restMongo);
+app.use('/', restMongoRouter);
 
 
-app.listen(3000);
-console.log('API magic happens at http://localhost:3000');
+app.listen(8080);
+console.log('API magic happens at http://localhost:8080');
 
 // handle unhandled promise rejection
 // https://nodejs.org/api/process.html#process_event_unhandledrejection
